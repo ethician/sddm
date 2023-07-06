@@ -55,6 +55,22 @@ OPTIONS
 	Reboot command.
 	Default value is "@REBOOT_COMMAND@".
 
+`EnableShutdown=`
+ Setting this to false disables shutting down the system.
+ Default value is true.
+
+`EnableReboot=`
+ Setting this to false disables rebooting the system.
+ Default value is true.
+
+`EnableHibernate=`
+ Setting this to false disables hibernating the system.
+ Default value is true.
+
+`EnableSuspend=`
+ Setting this to false disables suspending the system.
+ Default value is true.
+
 `Numlock=`
 	Change numlock state when **sddm-greeter** starts.
 	Valid values are `on`, `off` or `none`.

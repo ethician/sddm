@@ -42,6 +42,10 @@ namespace SDDM {
                                                                                                    "Valid values are: x11, x11-user, wayland. Wayland support is experimental"));
         Entry(HaltCommand,         QString,     _S(HALT_COMMAND),                               _S("Halt command"));
         Entry(RebootCommand,       QString,     _S(REBOOT_COMMAND),                             _S("Reboot command"));
+        Entry(EnableShutdown,      bool,        true,                                           _S("Enable Shutdown"));
+        Entry(EnableReboot,        bool,        true,                                           _S("Enable Reboot"));
+        Entry(EnableHibernate,     bool,        true,                                           _S("Enable Hibernate"));
+        Entry(EnableSuspend,       bool,        true,                                           _S("Enable Suspend"));
         Entry(Numlock,             NumState,    NUM_NONE,                                       _S("Initial NumLock state. Can be on, off or none.\n"
                                                                                                    "If property is set to none, numlock won't be changed\n"
                                                                                                    "NOTE: Currently ignored if autologin is enabled."));

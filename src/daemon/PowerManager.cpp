@@ -68,7 +68,13 @@ const QString UPOWER_OBJECT = QStringLiteral("org.freedesktop.UPower");
         }
 
         Capabilities capabilities() const {
-            Capabilities caps = Capability::PowerOff | Capability::Reboot;
+            Capabilities caps = Capability::None;
+
+            if (mainConfig.EnableShutdown.get())
+                caps |= Capability::PowerOff;
+
+            if (mainConfig.EnableReboot.get())
+                caps |= Capability::Reboot;
 
             QDBusReply<bool> reply;
 
@@ -142,27 +148,27 @@ const QString CK2_OBJECT = QStringLiteral("org.freedesktop.ConsoleKit.Manager");
 
             // power off
             reply = m_interface->call(QStringLiteral("CanPowerOff"));
-            if (reply.isValid() && (reply.value() == QLatin1String("yes")))
+            if (reply.isValid() && (reply.value() == QLatin1String("yes")) && mainConfig.EnableShutdown.get())
                 caps |= Capability::PowerOff;
 
             // reboot
             reply = m_interface->call(QStringLiteral("CanReboot"));
-            if (reply.isValid() && (reply.value() == QLatin1String("yes")))
+            if (reply.isValid() && (reply.value() == QLatin1String("yes")) && mainConfig.EnableReboot.get())
                 caps |= Capability::Reboot;
 
             // suspend
             reply = m_interface->call(QStringLiteral("CanSuspend"));
-            if (reply.isValid() && (reply.value() == QLatin1String("yes")))
+            if (reply.isValid() && (reply.value() == QLatin1String("yes")) && mainConfig.EnableSuspend.get())
                 caps |= Capability::Suspend;
 
             // hibernate
             reply = m_interface->call(QStringLiteral("CanHibernate"));
-            if (reply.isValid() && (reply.value() == QLatin1String("yes")))
+            if (reply.isValid() && (reply.value() == QLatin1String("yes")) && mainConfig.EnableHibernate.get())
                 caps |= Capability::Hibernate;
 
             // hybrid sleep
             reply = m_interface->call(QStringLiteral("CanHybridSleep"));
-            if (reply.isValid() && (reply.value() == QLatin1String("yes")))
+            if (reply.isValid() && (reply.value() == QLatin1String("yes")) && mainConfig.EnableSuspend.get() && mainConfig.EnableHibernate.get())
                 caps |= Capability::HybridSleep;
 
             // return capabilities
